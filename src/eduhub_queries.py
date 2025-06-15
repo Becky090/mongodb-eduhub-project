@@ -321,7 +321,7 @@ def get_top_performing_students(db, limit):
         {"$unwind": "$student"},
         {
             "$project": {
-                "studentId": "$_id",
+                # "studentId": "$_id",
                 "averageGrade": {"$round": ["$averageGrade", 2]},
                 "submissionCount": 1,
                 "name": {"$concat": ["$student.firstName", " ", "$student.lastName"]},
@@ -353,10 +353,22 @@ def get_total_students_per_instructor(db):
             }
         },
         {
+            "$lookup": {
+                "from": "users",
+                "localField": "_id",
+                "foreignField": "_id",
+                "as": "instructor",
+            }
+        },
+        {"$unwind": "$instructor"},
+        {
             "$project": {
-                "instructorId": "$_id",
-                "totalStudents": {"$size": "$totalStudents"},
                 "_id": 0,
+                "instructorId": "$_id",
+                "instructorName": {
+                    "$concat": ["$instructor.firstName", " ", "$instructor.lastName"]
+                },
+                "totalStudents": {"$size": "$totalStudents"},
             }
         },
     ]
@@ -368,7 +380,25 @@ def get_avg_rating_per_instructor(db):
     pipeline = [
         {"$match": {"rating": {"$ne": None}}},
         {"$group": {"_id": "$instructorId", "avgRating": {"$avg": "$rating"}}},
-        {"$project": {"instructorId": "$_id", "avgRating": 1, "_id": 0}},
+        {
+            "$lookup": {
+                "from": "users",
+                "localField": "_id",
+                "foreignField": "_id",
+                "as": "instructor",
+            }
+        },
+        {"$unwind": "$instructor"},
+        {
+            "$project": {
+                "_id": 0,
+                "instructorId": "$_id",
+                "instructorName": {
+                    "$concat": ["$instructor.firstName", " ", "$instructor.lastName"]
+                },
+                "avgRating": {"$round": ["$avgRating", 2]},
+            }
+        },
     ]
     return list(db.courses.aggregate(pipeline))
 
@@ -378,17 +408,40 @@ def get_revenue_per_instructor(db):
     pipeline = [
         {
             "$lookup": {
-                "from": "enrollments",
-                "localField": "_id",
-                "foreignField": "courseId",
-                "as": "enrollments",
+                "from": "courses",
+                "localField": "courseId",
+                "foreignField": "_id",
+                "as": "course",
             }
         },
-        {"$unwind": "$enrollments"},
-        {"$group": {"_id": "$instructorId", "revenue": {"$sum": "$price"}}},
-        {"$project": {"instructorId": "$_id", "revenue": 1, "_id": 0}},
+        {"$unwind": "$course"},
+        {
+            "$group": {
+                "_id": "$course.instructorId",
+                "revenue": {"$sum": "$course.price"},
+            }
+        },
+        {
+            "$lookup": {
+                "from": "users",
+                "localField": "_id",
+                "foreignField": "_id",
+                "as": "instructor",
+            }
+        },
+        {"$unwind": "$instructor"},
+        {
+            "$project": {
+                "instructorId": "$_id",
+                "instructorName": {
+                    "$concat": ["$instructor.firstName", " ", "$instructor.lastName"]
+                },
+                "revenue": {"$round": ["$revenue", 2]},
+                "_id": 0,
+            }
+        },
     ]
-    return list(db.courses.aggregate(pipeline))
+    return list(db.enrollments.aggregate(pipeline))
 
 
 # Advanced Analytics
