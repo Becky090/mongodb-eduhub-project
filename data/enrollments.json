@@ -1,0 +1,25 @@
+{"_id":"enroll1","studentId":"user22","courseId":"course2","enrolledAt":{"$date":"2025-04-07T03:47:01.807Z"},"status":"completed"}
+{"_id":"enroll2","studentId":"user15","courseId":"course2","enrolledAt":{"$date":"2025-05-19T10:20:25.208Z"},"status":"in progress"}
+{"_id":"enroll3","studentId":"user2","courseId":"course6","enrolledAt":{"$date":"2025-01-05T10:26:27.07Z"},"status":"in progress"}
+{"_id":"enroll4","studentId":"user21","courseId":"course3","enrolledAt":{"$date":"2025-03-23T04:33:20.966Z"},"status":"completed"}
+{"_id":"enroll5","studentId":"user2","courseId":"course7","enrolledAt":{"$date":"2025-01-19T01:18:31.484Z"},"status":"completed"}
+{"_id":"enroll6","studentId":"user13","courseId":"course7","enrolledAt":{"$date":"2025-03-28T21:46:29.909Z"},"status":"in progress"}
+{"_id":"enroll7","studentId":"user2","courseId":"course2","enrolledAt":{"$date":"2025-01-27T12:44:36.726Z"},"status":"completed"}
+{"_id":"enroll8","studentId":"user4","courseId":"course4","enrolledAt":{"$date":"2025-06-03T12:18:15.282Z"},"status":"in progress"}
+{"_id":"enroll9","studentId":"user12","courseId":"course8","enrolledAt":{"$date":"2025-01-02T22:01:58.464Z"},"status":"in progress"}
+{"_id":"enroll10","studentId":"user18","courseId":"course3","enrolledAt":{"$date":"2025-01-10T19:37:00.678Z"},"status":"in progress"}
+{"_id":"enroll11","studentId":"user19","courseId":"course6","enrolledAt":{"$date":"2025-02-14T15:33:03.794Z"},"status":"in progress"}
+{"_id":"enroll12","studentId":"user20","courseId":"course4","enrolledAt":{"$date":"2025-01-05T15:47:21.008Z"},"status":"completed"}
+{"_id":"enroll13","studentId":"user16","courseId":"course3","enrolledAt":{"$date":"2025-02-02T01:07:32.645Z"},"status":"in progress"}
+{"_id":"enroll14","studentId":"user2","courseId":"course3","enrolledAt":{"$date":"2025-03-11T12:17:45.252Z"},"status":"completed"}
+{"_id":"enroll16","studentId":"user3","courseId":"course3","enrolledAt":{"$date":"2025-05-10T20:10:00.719Z"},"status":"completed"}
+{"_id":"enroll17","studentId":"user17","courseId":"course8","enrolledAt":{"$date":"2025-01-14T08:53:08.375Z"},"status":"completed"}
+{"_id":"enroll18","studentId":"user21","courseId":"course3","enrolledAt":{"$date":"2025-03-07T12:20:59.715Z"},"status":"completed"}
+{"_id":"enroll19","studentId":"user16","courseId":"course7","enrolledAt":{"$date":"2025-01-15T04:12:52.389Z"},"status":"completed"}
+{"_id":"enroll20","studentId":"user19","courseId":"course7","enrolledAt":{"$date":"2025-01-18T01:01:51.744Z"},"status":"in progress"}
+{"_id":"enroll21","studentId":"user10","courseId":"course8","enrolledAt":{"$date":"2025-03-13T10:26:57.896Z"},"status":"in progress"}
+{"_id":"enroll22","studentId":"user15","courseId":"course6","enrolledAt":{"$date":"2025-02-21T14:40:35.296Z"},"status":"completed"}
+{"_id":"enroll23","studentId":"user11","courseId":"course1","enrolledAt":{"$date":"2025-05-28T10:47:25.588Z"},"status":"completed"}
+{"_id":"enroll24","studentId":"user14","courseId":"course1","enrolledAt":{"$date":"2025-01-22T20:25:03.626Z"},"status":"in progress"}
+{"_id":"enroll25","studentId":"user13","courseId":"course4","enrolledAt":{"$date":"2025-05-15T19:30:05.503Z"},"status":"in progress"}
+{"_id":"enroll26","studentId":"user1","courseId":"course1","enrolledAt":{"$date":"2025-06-14T13:43:58.591Z"},"status":"in progress"}
