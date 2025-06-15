@@ -1,0 +1,150 @@
+user_validator = {
+    "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["_id", "email", "firstName", "lastName", "role", "dateJoined"],
+        "properties": {
+            "_id": {"bsonType": "string"},
+            "email": {"bsonType": "string", "description": "must be a valid email"},
+            "firstName": {"bsonType": "string"},
+            "lastName": {"bsonType": "string"},
+            "role": {"enum": ["student", "instructor"]},
+            "dateJoined": {"bsonType": "date"},
+            "profile": {
+                "bsonType": "object",
+                "properties": {
+                    "bio": {"bsonType": "string"},
+                    "avatar": {"bsonType": "string"},
+                    "skills": {
+                        "bsonType": "array",
+                        "items": {"bsonType": "string"}
+                    }
+                }
+            },
+            "isActive": {"bsonType": "bool"}
+        }
+    }
+}
+
+db.create_collection("users", validator=user_validator)
+
+
+
+course_validator = {
+    "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["_id", "title", "instructorId", "level", "createdAt", "isPublished"],
+        "properties": {
+            "_id": {"bsonType": "string"},
+            "title": {"bsonType": "string"},
+            "description": {"bsonType": "string"},
+            "instructorId": {"bsonType": "string"},  # reference to users.userId
+            "category": {"bsonType": "string"},
+            "level": {
+                "enum": ["beginner", "intermediate", "advanced"]
+            },
+            "duration": {"bsonType": "int"},
+            "price": {"bsonType": "double"},
+            "tags": {
+                "bsonType": "array",
+                "items": {"bsonType": "string"}
+            },
+            "createdAt": {"bsonType": "date"},
+            "updatedAt": {"bsonType": "date"},
+            "isPublished": {"bsonType": "bool"}
+        }
+    }
+}
+
+# Create the collection
+db.create_collection("courses", validator=course_validator)
+
+
+enrollment_validator = {
+    "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["_id", "studentId", "courseId", "enrolledAt", "status"],
+        "properties": {
+            "_id": {"bsonType": "string"},
+            "studentId": {"bsonType": "string"},  # reference to users.userId
+            "courseId": {"bsonType": "string"},   # reference to courses.courseId
+            "enrolledAt": {"bsonType": "date"},
+            "status": {"enum": ["in progress", "completed"]} 
+        }
+    }
+}
+
+# Create the collection
+db.create_collection("enrollments", validator=enrollment_validator)
+
+
+
+lesson_validator = {
+    "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["_id", "courseId", "title", "order", "createdAt"],
+        "properties": {
+            "_id": {"bsonType": "string"},
+            "courseId": {"bsonType": "string"},  # reference to courses.courseId
+            "title": {"bsonType": "string"},
+            "content": {"bsonType": "string"},
+            "duration":{"bsonType": "int"},
+            "videoUrl": {"bsonType": "string"},
+            "order": {"bsonType": "int"},  # lesson order within the course
+            "createdAt": {"bsonType": "date"},
+            "updatedAt": {"bsonType": "date"}
+        }
+    }
+}
+
+# Create the collection
+db.create_collection("lessons", validator=lesson_validator)
+
+
+
+
+assignment_validator = {
+    "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["_id", "courseId", "title", "description", "createdAt", "dueDate", "maxScore"],
+        "properties": {
+            "_id": {"bsonType": "string"},
+            "courseId": {"bsonType": "string"},   # reference to courses.courseId
+            "lessonId": {"bsonType": ["string", "null"]},  # optional reference to lessons
+            "title": {"bsonType": "string"},
+            "description": {"bsonType": "string"},
+            "createdAt": {"bsonType": "date"},
+            "dueDate": {"bsonType": "date"},
+            "maxScore": {"bsonType": "double"},
+            "attachmentUrl": {"bsonType": ["string", "null"]}
+        }
+    }
+}
+
+# Create the collection
+db.create_collection("assignments", validator=assignment_validator)
+
+
+
+
+
+submission_validator = {
+    "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["_id", "assignmentId", "studentId", "submittedAt", "status"],
+        "properties": {
+            "_id": {"bsonType": "string"},
+            "assignmentId": {"bsonType": "string"},  
+            "studentId": {"bsonType": "string"},     
+            "contentUrl": {"bsonType": ["string", "null"]},
+            "submittedAt": {"bsonType": "date"},
+            "grade": {"bsonType": ["double", "null"]},
+            "feedback": {"bsonType": ["string", "null"]},
+            "status": {"bsonType": "string", "enum": ["submitted", "graded", "late"]}
+        }
+    }
+}
+
+# Create the collection
+db.create_collection("submissions", validator=submission_validator)
+
+
